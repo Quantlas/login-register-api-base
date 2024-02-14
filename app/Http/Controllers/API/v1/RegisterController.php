@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\v1\BaseController as BaseController;
+use App\Models\Scopes;
 
 class RegisterController extends BaseController
 {
@@ -28,10 +29,17 @@ class RegisterController extends BaseController
             'email' => 'required|email',
             'password' => 'required',
             'c_password' => 'required|same:password',
+            'rol' => 'required',
         ]);
 
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $rol = Scopes::where("rol", "LIKE", "%$request->rol%")->first();
+
+        if (!$rol) {
+            return $this->sendError("This rol don't exists.", ["error" => "The rol don't exists"]);
         }
 
         $input = $request->all();
