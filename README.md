@@ -12,6 +12,10 @@ Usando esta base podrás:
 -   Autenticar usuarios registrados.
 -   Deslogear usuarios autenticados.
 
+### Release v1.1.0
+
+-   Agregada funcionalidad de roles y scopes
+
 ## Get Started
 
 -   Clona el repositorio.
@@ -31,7 +35,7 @@ Usando esta base podrás:
 -   Genera la key de la app
     `php artisan key:generate`
 -   Ejecuta las migraciones
-    `php artisan migrate`
+    `php artisan migrate --seed`
 -   Registrar clientes api
     `php artisan passport:install`
 -   Lanza el servidor
