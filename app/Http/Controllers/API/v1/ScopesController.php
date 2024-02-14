@@ -65,7 +65,6 @@ class ScopesController extends BaseController
             $scope->description = $request->description;
         }
         $scope->save();
-
         if ($scope) {
             return $this->sendResponse($scope, 'Scope updated successfully.', 201);
         } else {

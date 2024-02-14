@@ -23,7 +23,6 @@ class RegisterController extends BaseController
         if (User::where('email', $request->email)->first()) {
             return $this->sendError('This user exists.', ['error' => 'The user is already registered']);
         }
-
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
@@ -31,23 +30,18 @@ class RegisterController extends BaseController
             'c_password' => 'required|same:password',
             'rol' => 'required',
         ]);
-
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
-
         $rol = Scopes::where("rol", "LIKE", "%$request->rol%")->first();
-
         if (!$rol) {
             return $this->sendError("This rol don't exists.", ["error" => "The rol don't exists"]);
         }
-
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
-
         return $this->sendResponse($success, 'User register successfully.');
     }
 
@@ -62,7 +56,6 @@ class RegisterController extends BaseController
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['name'] =  $user->name;
-
             return $this->sendResponse($success, 'User login successfully.');
         } else {
             return $this->sendError('Unauthorised.', ['error' => 'Unauthorised'], 401);
@@ -75,7 +68,6 @@ class RegisterController extends BaseController
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
-
         return $this->sendResponse('Logout', 'User logout successfully.');
     }
 }
