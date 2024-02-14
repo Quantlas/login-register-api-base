@@ -6,13 +6,13 @@ La base de cualquier API REST es poder gestionar usuarios. Con este código podr
 
 ## Características
 
-Usando esta base podrás:
+#### Release v1.0.0
 
 -   Registrar usuarios.
 -   Autenticar usuarios registrados.
 -   Deslogear usuarios autenticados.
 
-### Release v1.1.0
+#### Release v1.1.0
 
 -   Agregada funcionalidad de roles y scopes
 
